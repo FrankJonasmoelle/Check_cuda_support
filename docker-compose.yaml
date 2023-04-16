@@ -3,6 +3,11 @@ version: '3.8'
 services:
   pytorch_cuda_test:
     build: .
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-    runtime: nvidia
+    command: python check_cuda.py
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
